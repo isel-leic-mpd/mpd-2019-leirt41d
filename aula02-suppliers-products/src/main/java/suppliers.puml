@@ -1,0 +1,82 @@
+@startuml
+
+skinparam nodesep 20
+skinparam ranksep 40
+skinparam classAttributeIconSize 0
+hide empty members
+hide circle
+
+
+'$Supplier
+interface Supplier{
+ +find(productName:String):Product
+ +getProducts():Product[]
+ +getNumberOfProducts():int
+ +getName():String
+ +getDescription(prefix:String):String
+}
+'\$
+
+'\$
+interface Supplier
+Supplier <|.- SupplierBase
+'\$
+
+'\$Caloric
+interface Caloric{
+ ~getCalories():int
+}
+'\$
+
+'$OneProductProducer
+class OneProductProducer{
+ +OneProductProducer(sn:String,p:Product)
+ +find(pn:String):Product
+ +getProducts():Product[]
+ +getNumberOfProducts():int
+ +getDescription(prefix:String):String
+}
+OneProductProducer o-- Product : -product
+SupplierBase <|-- OneProductProducer
+'\$
+
+'$Producer
+class Producer{
+ {static}-template:Product[]
+ +Producer(sn:String,ps:Product)
+ +find(pn:String):Product
+ +getProducts():Product[]
+ +getNumberOfProducts():int
+ +getDescription(prefix:String):String
+}
+Producer o-- "*" Product : -products
+SupplierBase <|-- Producer
+'\$
+
+'$Retailer
+class Retailer{
+ +Retailer(name:String)
+ +getNumberOfProducts():int
+ +find(productName:String):Product
+ +getProducts():Product[]
+ +add(s:Supplier):Retailer
+ +getDescription(prefix:String):String
+}
+Retailer o-- "*" Supplier : suppliers
+SupplierBase <|-- Retailer
+'\$
+
+
+'$SupplierBase
+abstract class SupplierBase{
+ -supplierName:String
+ +SupplierBase(sn:String)
+ +getName():String
+ +toString():String
+ +getDescription(prefix:String):String
+}
+interface Supplier
+
+'\$
+
+@enduml

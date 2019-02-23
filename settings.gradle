@@ -10,4 +10,4 @@
 rootProject.name = 'mpd-2019-leirt41d'
 
 include 'gradle-hello'
-include 'aula-2019-02-21'
+include 'aula02-suppliers-products'

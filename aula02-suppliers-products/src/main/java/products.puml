@@ -1,0 +1,102 @@
+@startuml
+
+skinparam nodesep 20
+skinparam ranksep 40
+skinparam classAttributeIconSize 0
+hide empty members
+hide circle
+
+
+
+'$
+interface Product
+Product O- Supplier : -supplier
+'$
+
+
+
+'$Product
+interface Product{
+ +getName():String
+ +getPrice():double
+ +getPriceInCentimes():int
+ +getType():ProdType
+ +setPrice(p:double):double
+ +getSupplier():Supplier
+ +setSupplier(s:Supplier)
+}
+Comparable <|-- Product
+'\$
+
+'$Cleaning
+class Cleaning{
+ +Cleaning(name:String,price:double)
+ +getType():ProdType
+}
+ProductBase <|-- Cleaning
+'\$
+
+'$Drink
+class Drink{
+ +Drink(name:String,price:double)
+ +getType():ProdType
+}
+Meal <|-- Drink
+'\$
+
+'$Electronic
+class Electronic{
+ +Electronic(name:String,price:double)
+ +getType():ProdType
+}
+ProductBase <|-- Electronic
+'\$
+
+'$Food
+class Food{
+ +Food(name:String,price:double)
+ +getType():ProdType
+}
+Meal <|-- Food
+'\$
+
+enum Product.ProdType {
+    FOOD, DRINK, DRUGSTORE, ELECTRONIC
+}
+
+'$Meal
+abstract class Meal{
+ -calories:int
+ +Meal(name:String,price:double)
+ +getCalories():int
+}
+interface Caloric
+Caloric <|.- Meal
+ProductBase <|-- Meal
+'\$
+
+
+'$ProductBase
+abstract class ProductBase{
+ -name:String
+ -price:double
+ +ProductBase(n:String,p:double)
+ +getName():String
+ +getPrice():double
+ +setPrice(p:double):double
+ +getSupplier():Supplier
+ +setSupplier(s:Supplier)
+ +getPriceInCentimes():int
+ +toString():String
+ +equals(o:Object):boolean
+ +hashCode():int
+ +compareTo(p:Product):int
+}
+
+'\$Product
+interface Product
+ProductBase o- Supplier : -supplier
+Product <|-- ProductBase
+'\$
+
+@enduml
