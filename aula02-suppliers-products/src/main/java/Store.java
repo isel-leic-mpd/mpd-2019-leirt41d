@@ -6,7 +6,7 @@ import suppliers.Supplier;
 import java.util.*;
 
 /**
- * It's a container for suppliers and it's products
+ * A container for suppliers and it's products
  */
 public class Store {
     private List<Product> catalog;
