@@ -1,12 +1,15 @@
-
+import products.PriceChangedObserver;
 import products.Product;
+
 import suppliers.Supplier;
+
+
 import java.util.*;
 
 /**
  * A container for suppliers and it's products
  */
-public class Store   {
+public class Store  implements PriceChangedObserver  {
     private List<Product> catalog;
     private Supplier[] suppliers;
 
@@ -51,4 +54,17 @@ public class Store   {
     }
 
 
+    //implementation of PriceChangedObserver
+
+    @Override
+    public void priceChanged(Product p, double oldPrice) {
+        if (oldPrice < p.getPrice())
+            increasedPriceProducts.add(p);
+    }
+
+    public Product[] getIncreasedPriceProducts() {
+        return increasedPriceProducts.toArray(emptyProducts);
+    }
+
+    public void clearIncreasesPriceProducts() { increasedPriceProducts.clear(); }
 }

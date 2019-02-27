@@ -3,10 +3,12 @@ package products;
 import suppliers.Supplier;
 
 public abstract class ProductBase
-        implements Product {
+        implements Product, PriceChangedObservable {
     private final String name;
     private double price;
     private Supplier supplier; // = null;
+
+    private PriceChangedObserver observer;
 
     public ProductBase(String n, double p)  { this.name= n; this.price=p; }
 
@@ -23,6 +25,9 @@ public abstract class ProductBase
     public double setPrice(double p) {
         double old = this.price;
         this.price = p;
+
+        if (observer != null && p != old)
+            observer.priceChanged(this, old);
         return old;
     }
 
@@ -86,5 +91,13 @@ public abstract class ProductBase
                 : getPriceInCentimes() - p.getPriceInCentimes();
     }
 
+    @Override
+    public void setObserver(PriceChangedObserver observer) {
+        this.observer = observer;
+    }
 
+    @Override
+    public void removeObserver() {
+        observer = null;
+    }
 }

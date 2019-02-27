@@ -7,7 +7,6 @@ public abstract class Meal extends ProductBase  implements Caloric {
     public Meal(String name, double price, int calories) {
         super(name, price);
         this.calories = calories;
-       
     }
 
     @Override

@@ -21,8 +21,8 @@ public class SuppliersTests {
 
         Supplier cocaCola = new Producer(
                 "Coca-Cola company",
-                new Drink("Coca-Cola", 1.0, 400),
-                new Drink("Coca-Cola Zero", 1.5, 20));
+                    new Drink("Coca-Cola", 1.0, 400),
+                    new Drink("Coca-Cola Zero", 1.5, 20));
 
         Supplier pepsiCola = new Producer(
                 "Pepsi company",

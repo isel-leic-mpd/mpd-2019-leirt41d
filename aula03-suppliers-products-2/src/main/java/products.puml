@@ -6,7 +6,6 @@ skinparam classAttributeIconSize 0
 hide empty members
 hide circle
 
-
 '$Product
 interface Product{
  ~getName():String
@@ -17,7 +16,7 @@ interface Product{
  ~getSupplier():Supplier
  ~setSupplier(s:Supplier)
 }
-Comparable <|.- Product
+Comparable <|-- Product
 '\$
 
 '$Cleaning
@@ -62,11 +61,19 @@ abstract class Meal{
  +Meal(name:String,price:double,calories:int)
  +getCalories():int
 }
-interface Caloric
+
+
+interface Caloric {
+ +getCalories():int
+}
 Caloric <|.- Meal
 ProductBase <|-- Meal
 '\$
 
+interface PriceChangedObservable {
+     +setObserver(observer:PriceChangedObserver );
+     +removeObserver();
+}
 
 '$ProductBase
 abstract class ProductBase{
@@ -86,7 +93,7 @@ abstract class ProductBase{
 }
 interface Product
 ProductBase o-- Supplier : -supplier
-Product <|. ProductBase
+Product <|.- ProductBase
 '\$
 
 @enduml

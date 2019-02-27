@@ -9,17 +9,23 @@ hide circle
 
 '$Supplier
 interface Supplier{
- ~find(productName:String):Product
- ~getProducts():Product[]
- ~getNumberOfProducts():int
- ~getName():String
- ~getDescription(prefix:String):String
+ +find(productName:String):Product
+ +getProducts():Product[]
+ +getNumberOfProducts():int
+ +getName():String
+ +getDescription(prefix:String):String
 }
 '\$
 
 '\$
 interface Supplier
 Supplier <|.- SupplierBase
+'\$
+
+'\$Caloric
+interface Caloric{
+ ~getCalories():int
+}
 '\$
 
 '$OneProductProducer
@@ -70,7 +76,7 @@ abstract class SupplierBase{
  +getDescription(prefix:String):String
 }
 interface Supplier
-Supplier <|.- SupplierBase
+
 '\$
 
 @enduml
