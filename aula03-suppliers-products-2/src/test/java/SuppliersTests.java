@@ -6,6 +6,7 @@ import suppliers.Retailer;
 import suppliers.Supplier;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -37,7 +38,7 @@ public class SuppliersTests {
                 "Moulinex",
                 new Electronic("Robot", 300),
                 new Electronic("Toaster 500", 30),
-                new Electronic("Toaster1000", 50));
+                new Electronic("Toaster 1000", 50));
 
         suppliers.add(moulinex);
 
@@ -52,6 +53,22 @@ public class SuppliersTests {
     }
 
 
+    @Test
+    public void checkElectronicProducts() {
+        Comparator<Product> cmp = new Comparator<>() {
+            @Override
+            public int compare(Product p1, Product p2) {
+                return p1.compareTo(p2);
+            }
+        };
+        Product[] result =
+            store.getAllElectronics(
+                ( p1,  p2) ->
+                    (int) (p1.getPrice() - p2.getPrice()));
+
+        for(Product p : result)
+            System.out.println(p);
+    }
     @Test
     public void countSuppliersTest() {
         int expectedSuppliers = 7;

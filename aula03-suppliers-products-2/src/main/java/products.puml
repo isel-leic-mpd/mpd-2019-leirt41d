@@ -74,6 +74,7 @@ interface PriceChangedObservable {
      +setObserver(observer:PriceChangedObserver );
      +removeObserver();
 }
+PriceChangedObservable <|. ProductBase
 
 '$ProductBase
 abstract class ProductBase{
@@ -90,6 +91,8 @@ abstract class ProductBase{
  +equals(o:Object):boolean
  +hashCode():int
  +compareTo(p:Product):int
+ +setObserver(observer:PriceChangedObserver );
+ +removeObserver();
 }
 interface Product
 ProductBase o-- Supplier : -supplier

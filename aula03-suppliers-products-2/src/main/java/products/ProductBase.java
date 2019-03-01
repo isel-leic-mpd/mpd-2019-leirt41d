@@ -68,7 +68,8 @@ public abstract class ProductBase
 
         Product p = (Product) o;
         return this.getName().equalsIgnoreCase(p.getName()) &&
-               getPriceInCentimes() == p.getPriceInCentimes() && p.getType() == getType();
+               getPriceInCentimes() == p.getPriceInCentimes() &&
+                p.getType() == getType();
     }
 
     /**
@@ -93,6 +94,7 @@ public abstract class ProductBase
 
     @Override
     public void setObserver(PriceChangedObserver observer) {
+
         this.observer = observer;
     }
 

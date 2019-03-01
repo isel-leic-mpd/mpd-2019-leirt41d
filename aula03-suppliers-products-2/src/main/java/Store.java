@@ -1,3 +1,4 @@
+import products.PriceChangedObservable;
 import products.PriceChangedObserver;
 import products.Product;
 
@@ -25,16 +26,56 @@ public class Store  implements PriceChangedObserver  {
         for(Supplier s : suppliers) {
             for(Product p : s.getProducts()) catalog.add(p);
         }
+
+        for(Product p : catalog) {
+            if (p instanceof PriceChangedObservable) {
+                PriceChangedObservable pco =
+                        (PriceChangedObservable) p;
+                pco.setObserver(this);
+            }
+        }
     }
 
     // queries from store
 
-    public Product[] getAllElectronics() {
+    private void sortProducts(Product[] products) {
+        Arrays.sort(products);
+    }
+
+    private static class ProductCmpByPrice
+            implements Comparator<Product> {
+
+        @Override
+        public int compare(Product p1, Product p2) {
+            return (int) (p1.getPrice() - p2.getPrice());
+        }
+    }
+
+    private void sortProductsByPrice(Product[] products) {
+
+        Arrays.sort(products, new Comparator<Product>() {
+
+            @Override
+            public int compare(Product p1, Product p2) {
+                return (int) (p1.getPrice() - p2.getPrice());
+            }
+        });
+
+
+        Comparator<Product> cmp =   ( p1,  p2) ->
+            (int) (p1.getPrice() - p2.getPrice());
+
+
+    }
+
+    public Product[] getAllElectronics(Comparator<Product> cmp) {
         List<Product> prods = new ArrayList<>();
         for(Product p: catalog) {
             if (p.getType() == Product.ProdType.ELECTRONIC) prods.add(p);
         }
-        return prods.toArray(emptyProducts);
+        Product[] result = prods.toArray(emptyProducts);
+        Arrays.sort(result, cmp);
+        return result;
     }
 
     public Supplier[] getAllSuppliers() {
@@ -66,5 +107,7 @@ public class Store  implements PriceChangedObserver  {
         return increasedPriceProducts.toArray(emptyProducts);
     }
 
-    public void clearIncreasesPriceProducts() { increasedPriceProducts.clear(); }
+    public void clearIncreasesPriceProducts() {
+        increasedPriceProducts.clear();
+    }
 }

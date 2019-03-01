@@ -86,7 +86,7 @@ abstract class ProductBase{
 }
 interface Product
 ProductBase o-- Supplier : -supplier
-Product <|. ProductBase
+Product <|- ProductBase
 '\$
 
 @enduml

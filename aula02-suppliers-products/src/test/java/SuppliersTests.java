@@ -37,7 +37,7 @@ public class SuppliersTests {
                 "Moulinex",
                 new Electronic("Robot", 300),
                 new Electronic("Toaster 500", 30),
-                new Electronic("Toaster1000", 50));
+                new Electronic("Toaster 1000", 50));
 
         suppliers.add(moulinex);
 
