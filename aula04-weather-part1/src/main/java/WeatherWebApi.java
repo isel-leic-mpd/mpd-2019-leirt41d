@@ -58,18 +58,7 @@ public class WeatherWebApi {
             // the stream used to get the response to the service request
             InputStream respStream = url.openStream();
 
-            try(BufferedReader reader = new BufferedReader(new InputStreamReader(respStream))) {
-                String line;
-                while((line= reader.readLine()) != null && line.startsWith("#")) {}
-                boolean toRead=false;
-                while((line= reader.readLine()) != null) {
-                    if (toRead) {
-                        result.add(WeatherInfo.valueOf(line));
-                        toRead = false;
-                    }
-                    else toRead = true;
-                }
-            }
+           // TO COMPLETE!
         }
         catch(IOException e) {
             throw new UncheckedIOException(e);
