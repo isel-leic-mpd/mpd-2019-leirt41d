@@ -30,7 +30,7 @@ public class WeatherWebApi {
     }
 
     /**
-     * STatic onstructor
+     * Static Constructor
      */
     static {
         API_KEY = getApiKeyFromResources();
