@@ -51,6 +51,11 @@ public class DayInfo {
                 + "}";
     }
 
+    /**
+     * Use this method the time information to a LocalTime
+     * @param time
+     * @return
+     */
     private static LocalTime parseTime(String time) {
         try {
             return LocalTime.parse(time,
