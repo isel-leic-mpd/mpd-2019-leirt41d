@@ -63,8 +63,7 @@ public class SuppliersTests {
         };
         Product[] result =
             store.getAllElectronics(
-                ( p1,  p2) ->
-                    (int) (p1.getPrice() - p2.getPrice()));
+                (p1,  p2) -> (int) (p1.getPrice() - p2.getPrice()));
 
         for(Product p : result)
             System.out.println(p);

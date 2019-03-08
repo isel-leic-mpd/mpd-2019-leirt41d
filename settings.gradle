@@ -13,4 +13,5 @@ include 'gradle-hello'
 include 'aula02-suppliers-products'
 include 'aula03-suppliers-products-2'
 include 'aula04-weather-part1'
+include 'aula05-weather-part2'
 
