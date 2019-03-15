@@ -1,13 +1,13 @@
 import dto.DayInfo;
 import dto.Location;
 import dto.WeatherInfo;
-import org.junit.Assert;
 import org.junit.Test;
 import utils.FileRequest;
 
 
 import static queries.generic.GenericQueries.*;
 import static java.time.LocalDate.of;
+import static org.junit.Assert.*;
 
 
 public class WeatherTests {
@@ -26,9 +26,13 @@ public class WeatherTests {
                         of(2019, 2, 26),
                         24);
 
-        int res = count(filter(past, wi -> wi.getDescription().contains("Sunny")));
+        int res = count(
+                    filter(past,
+                        wi -> wi.getDescription().contains("Sunny")
+                    )
+                  );
 
-        Assert.assertEquals(expectedCount, res);
+        assertEquals(expectedCount, res);
     }
 
     @Test
@@ -51,7 +55,44 @@ public class WeatherTests {
         );
 
 
-        Assert.assertEquals(expectedCount, res,0.001);
+        assertEquals(expectedCount, res,0.001);
+
+    }
+
+    @Test
+    public void testFilterMapMax() {
+
+        final int expectedMax = 18;
+
+        WeatherWebApi weather = new WeatherWebApi(new FileRequest());
+
+        Iterable<WeatherInfo> past =
+                weather.pastWeather(lisbonLat, lisbonLong,
+                        of(2019, 1, 1),
+                        of(2019, 2, 26),
+                        24);
+
+
+        /*
+        You must understand that this commented code is equivalent to the used code below!
+
+        Iterable<WeatherInfo> rainy = filter(past, wi-> wi.getPrecipMM() > 0.0);
+        Iterable<Integer> temps = map(rainy,  wi-> wi.getTempC());
+        int res = reduce(temps,   Integer.MIN_VALUE,  (acc, val) -> (val > acc) ? val : acc);
+        */
+
+        int res =
+            reduce(
+                map(
+                    filter(past, wi-> wi.getPrecipMM() > 0.0),
+                    wi-> wi.getTempC()
+                ),
+                Integer.MIN_VALUE,
+                (acc, val) -> (val > acc) ? val : acc
+            );
+
+        assertEquals(expectedMax, res);
+
     }
 
 
@@ -74,7 +115,7 @@ public class WeatherTests {
             count++;
         }
 
-        Assert.assertEquals(expectedCount, count);
+        assertEquals(expectedCount, count);
     }
 
     @Test
@@ -90,7 +131,7 @@ public class WeatherTests {
             count++;
         }
 
-        Assert.assertEquals(expectedCount, count);
+        assertEquals(expectedCount, count);
     }
 
 }

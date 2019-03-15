@@ -1,4 +1,4 @@
-package generics;
+package queries.generic;
 
 // Interface genérica para converter uma instância de um tipo(T) noutro tipo(U)
 public interface Mapper<T, U> {

@@ -1,4 +1,4 @@
-package generics;
+package queries.generic;
 
 
 // interface genérica para selecionar instâncias de T de acordo com um qualquer critério
