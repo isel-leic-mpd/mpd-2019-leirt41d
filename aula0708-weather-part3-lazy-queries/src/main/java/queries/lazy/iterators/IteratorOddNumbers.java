@@ -2,7 +2,7 @@ package queries.lazy.iterators;
 
 import java.util.Iterator;
 
-public class OddNumbersIterator implements Iterator<Integer> {
+public class IteratorOddNumbers implements Iterator<Integer> {
     private int nextNum = 1;
     @Override
     public boolean hasNext() {

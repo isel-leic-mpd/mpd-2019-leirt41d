@@ -3,11 +3,11 @@ package queries.lazy.iterators;
 import java.util.Iterator;
 import java.util.function.Function;
 
-public class MapIterator<T,U> implements Iterator<U> {
+public class IteratorMap<T,U> implements Iterator<U> {
     private final Iterator<T> src;
     private final Function<T,U> mapper;
 
-    public MapIterator(Iterable<T> src, Function<T,U> mapper) {
+    public IteratorMap(Iterable<T> src, Function<T,U> mapper) {
         this.src = src.iterator();
         this.mapper = mapper;
     }

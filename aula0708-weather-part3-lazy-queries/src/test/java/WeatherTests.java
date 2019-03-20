@@ -5,7 +5,7 @@ import org.junit.Test;
 import utils.FileRequest;
 
 
-import static queries.generic.GenericQueries.*;
+import static queries.lazy.QueriesLazy.*;
 import static java.time.LocalDate.of;
 import static org.junit.Assert.*;
 

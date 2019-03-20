@@ -2,6 +2,7 @@ package queries.generic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -73,10 +74,12 @@ public class GenericQueries {
     // the max reduce is done in the unitary tests
     public static <T,A> A reduce(Iterable<T> src,
                                  A initial,
-                                 Accumulator<A,T> accum) {
+                                 BiFunction<A,T,A> accum
+                                 //Accumulator<A,T> accum
+                        ) {
         A res  = initial;
         for(T val : src) {
-            res = accum.accumulate(res, val);
+            res = accum.apply(res, val);
         }
         return res;
     }
