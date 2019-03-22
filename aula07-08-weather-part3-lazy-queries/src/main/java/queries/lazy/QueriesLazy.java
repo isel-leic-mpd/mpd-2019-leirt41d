@@ -2,11 +2,15 @@ package queries.lazy;
 
 import queries.lazy.iterators.*;
 
+import java.util.Iterator;
+import java.util.Optional;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class QueriesLazy {
+public class
+QueriesLazy {
     // generates an infinite sequence of odd numbers
     public static Iterable<Integer> oddNumbers() {
 
@@ -37,8 +41,7 @@ public class QueriesLazy {
 
     public static <T> Iterable<T> dropWhile(
             Iterable<T> src, Predicate<T> pred){
-        // to complete!
-        return null;
+        return () -> new IteratorDropWhile(src,pred);
     }
 
     // terminal operations, can't be lazy!
@@ -70,5 +73,28 @@ public class QueriesLazy {
             res = accum.apply(res, val);
         }
         return res;
+    }
+
+    public static <T> Optional<T> first(Iterable<T> src) {
+        Iterator<T> it = src.iterator();
+        if (!it.hasNext()) return Optional.empty();
+        return Optional.of(it.next());
+    }
+
+    public static <T> Iterable<T> skip(Iterable<T> src, int n) {
+        Iterator<T> it = src.iterator();
+
+        while (it.hasNext() && n > 0) {
+            it.next();
+            n--;
+        }
+        return () -> it;
+    }
+
+
+    public static <T> void forEach(Iterable<T> src,
+                                   Consumer<T> action){
+        for(T item : src)
+            action.accept(item);
     }
 }

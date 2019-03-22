@@ -15,5 +15,7 @@ include 'aula03-suppliers-products-2'
 include 'aula04-weather-part1'
 include 'aula05-weather-part2-naive-queries'
 include 'aula06-weather-part3-queries.generics'
-include 'aula0708-weather-part3-lazy-queries'
+include 'aula07-08-weather-part3-lazy-queries'
+include 'aula09-weather-service'
+
 
