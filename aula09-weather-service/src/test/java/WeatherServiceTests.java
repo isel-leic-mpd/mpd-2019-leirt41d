@@ -34,8 +34,8 @@ public class WeatherServiceTests {
     @Test
     public void getMoonPhaseOfDateAtLisbon2019_02_12() {
         String expectedPhase = "First Quarter";
-
-        // To complete
+        fail();
+        // To implement
     }
 
     @Test
@@ -67,8 +67,6 @@ public class WeatherServiceTests {
             );
 
         assertEquals(48, count);
-
-
     }
 
 
@@ -79,13 +77,13 @@ public class WeatherServiceTests {
                 new WeatherService(new WeatherWebApi(new HttpRequest()));
 
         Optional<Location> lisbonOpt =
-                first(
-                        filter(
-                                weather.search("Lisbon"),
-                                l -> l.getCountry()
-                                        .equalsIgnoreCase("portugal")
-                        )
-                );
+            first(
+                filter(
+                    weather.search("Lisbon"),
+                    l -> l.getCountry()
+                            .equalsIgnoreCase("portugal")
+                )
+            );
 
         assertTrue(lisbonOpt.isPresent());
         Location lisbon = lisbonOpt.get();
@@ -95,7 +93,7 @@ public class WeatherServiceTests {
 
         Optional<DayInfo> maxThermalAmplitude=null;
 
-        /* use aqui a operação reduce efectuada anteriormente para
+        /* use aqui a operação reduce realizada anteriormente para
         obter o dia com a amplitude térmica máxima
         */
         assertTrue(maxThermalAmplitude.isPresent());
