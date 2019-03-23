@@ -66,14 +66,8 @@ public class Queries {
     }
 
     public static <T> Optional<T> reduce(Iterable<T> src, BinaryOperator<T> accumulator) {
-        Iterator<T> it = src.iterator();
-        if (!it.hasNext()) return Optional.empty();
-        T res = it.next();
-        while(it.hasNext()) {
-            res = accumulator.apply(res, it.next());
-        }
-        return Optional.of(res);
-
+        // a implementar
+        return null;
     }
 
     public static <T> T[] toArray(Iterable<T> src) {
