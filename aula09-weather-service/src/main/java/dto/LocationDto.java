@@ -1,10 +1,11 @@
 package dto;
 
+
 import com.google.gson.annotations.SerializedName;
 
 public class LocationDto {
     /*
-    #The Search API
+    #The Search API, comma(tab) separated values (csv)
     #Data returned is laid out in the following order:-
     #AreaName    Country     Region(If available)    Latitude    Longitude   Population(if available)    Weather Forecast URL
     #
@@ -12,6 +13,71 @@ public class LocationDto {
     Lisbon	United States of America	Maine	44.031	-70.105	9392	http://api.worldweatheronline.com/v2/weather.aspx?q=44.0314,-70.105
     */
 
+      /*
+        http://api.worldweatheronline.com/premium/v1/search.ashx?query=Lisbon&format=json&key=eeb802b6e8a740e4b1c120552192901
+        SearchAPI, JavaScript Object Notation (json)
+        {
+             "search_api": {
+               "result": [
+                 {
+                   "areaName": [
+                     {
+                       "value": "Lisbon"
+                     }
+                   ],
+                   "country": [
+                     {
+                       "value": "Portugal"
+                     }
+                   ],
+                   "region": [
+                     {
+                       "value": "Lisboa"
+                     }
+                   ],
+                   "latitude": "38.717",
+                   "longitude": "-9.133",
+                   "population": "517798",
+                   "weatherUrl": [
+                     {
+                       "value": "http://api-cdn.worldweatheronline.com/v2/weather.aspx?q=38.7167,-9.1333"
+                     }
+                   ]
+                 },
+                 {
+                   "areaName": [
+                     {
+                       "value": "Lisbon"
+                     }
+                   ],
+                   "country": [
+                     {
+                       "value": "United States of America"
+                     }
+                   ],
+                   "region": [
+                     {
+                       "value": "Maine"
+                     }
+                   ],
+                   "latitude": "44.031",
+                   "longitude": "-70.105",
+                   "population": "9392",
+                   "weatherUrl": [
+                     {
+                       "value": "http://api-cdn.worldweatheronline.com/v2/weather.aspx?q=44.0314,-70.105"
+                     }
+                   ]
+                 }
+               ]
+            }
+         }
+    */
+    public static class NameDto {
+        private String value;
+
+        public NameDto(String value ) { this.value =value; }
+    }
     // indexes
     private static final int NAME       =   0;
     private static final int COUNTRY    =   1;
@@ -22,17 +88,30 @@ public class LocationDto {
     @SerializedName("areaName")
     private NameDto[] name;        // index 0
     private NameDto[] country;     // index 1
-    private double latitude;    // index 3
-    private double longitude;   // index 4
+    private double latitude;       // index 3
+    private double longitude;      // index 4
     private NameDto[] weatherUrl;  // index 5
 
-    public LocationDto(NameDto[] name, NameDto[] country,
-                       double latitude, double longitude, NameDto[] weatherUrl) {
+    public LocationDto(NameDto[] name, NameDto[] country,  double latitude,
+                       double longitude, NameDto[] weatherUrl) {
         this.name = name;
         this.country = country;
         this.latitude = latitude;
         this.longitude = longitude;
         this.weatherUrl = weatherUrl;
+    }
+
+    public LocationDto(String name, String country,  double latitude,
+                       double longitude, String weatherUrl) {
+        NameDto[] name_a = {new NameDto(name)};
+        NameDto[] country_a = {new NameDto(country)};
+        NameDto[] weatherUrl_a = {new NameDto(weatherUrl)};
+
+        this.name = name_a;
+        this.country = country_a;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.weatherUrl = weatherUrl_a;
     }
 
     // acessors
@@ -45,24 +124,22 @@ public class LocationDto {
     @Override
     public String toString() {
         return "{"
-                + getName()
-                + ", country=" + getCountry()
+                + name
+                + ", country=" + country
                 + ", latitude=" + latitude
                 + ", longitude=" + longitude
-                + ", weatherUrl=" + getWeatherUrl();
+                + ", weatherUrl=" + weatherUrl;
     }
 
     public static LocationDto valueOf(String line) {
         String[] parts = line.split("\t");
-        NameDto[] name = { new NameDto(parts[NAME])};
-        NameDto[] country = { new NameDto(parts[COUNTRY])};
-        NameDto[] weatherUrl = { new NameDto(parts[WEATHER_URL])};
+
         return new LocationDto(
-                name,
-                country,
+                parts[NAME],
+                parts[COUNTRY],
                 Double.valueOf(parts[LATITUDE]),
                 Double.valueOf(parts[LONGITUDE]),
-                weatherUrl
+                parts[WEATHER_URL]
         );
     }
 }
