@@ -1,8 +1,8 @@
 package dto;
 
 public class ResultDto {
-    LocationDto[] result;
-    ResultDto( LocationDto[] result) {
+    private LocationDto[] result;
+    public ResultDto( LocationDto[] result) {
         this.result = result;
     }
 

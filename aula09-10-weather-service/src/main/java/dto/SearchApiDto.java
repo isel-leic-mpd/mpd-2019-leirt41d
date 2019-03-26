@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class SearchApiDto {
     @SerializedName("search_api")
-    ResultDto result;
+    private ResultDto result;
 
     public SearchApiDto(ResultDto result) {
         this.result = result;

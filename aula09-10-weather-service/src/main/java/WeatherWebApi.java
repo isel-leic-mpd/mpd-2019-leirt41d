@@ -173,8 +173,8 @@ public class WeatherWebApi {
 
         try(BufferedReader reader =
                     new BufferedReader(new InputStreamReader(req.openStream(path)))) {
-            String json = reader.lines().reduce((s1,s2) -> s1 + s2).get();
-            SearchApiDto search = gson.fromJson(json, SearchApiDto.class);
+            //String json = reader.lines().reduce((s1,s2) -> s1 + s2).get();
+            SearchApiDto search = gson.fromJson(reader, SearchApiDto.class);
             return Arrays.asList(search.getResult().getLocations());
         }
         catch(IOException e) {

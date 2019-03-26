@@ -9,11 +9,17 @@ import java.util.Optional;
 import java.util.function.*;
 
 public class Queries {
+
+    public static <T> Iterable<T> from(T... vals) {
+        return () -> new IteratorArray<>(vals);
+    }
+
     public static <T> Iterable<T> filter(Iterable<T> src, Predicate<T> p) {
         return () -> new IteratorFilter<T>(src, p);
     }
 
-    public static <T,R> Iterable<R> flatMap(Iterable<T> src, Function<T,Iterable<R>> mapper) {
+    public static <T,R> Iterable<R> flatMap(Iterable<T> src,
+                                    Function<T,Iterable<R>> mapper) {
         return () -> new IteratorFlatMap(src, mapper);
     }
 
