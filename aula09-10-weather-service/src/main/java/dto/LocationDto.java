@@ -2,7 +2,7 @@ package dto;
 
 
 import com.google.gson.annotations.SerializedName;
-
+ 
 public class LocationDto {
     /*
     #The Search API, comma(tab) separated values (csv)
