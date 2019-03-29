@@ -17,5 +17,5 @@ include 'aula05-weather-part2-naive-queries'
 include 'aula06-weather-part3-queries.generics'
 include 'aula07-08-weather-part3-lazy-queries'
 include 'aula09-10-weather-service'
-
+include 'aula11-method-references'
 
