@@ -55,7 +55,7 @@ public class SuppliersTests {
 
     @Test
     public void checkElectronicProducts() {
-        Comparator<Product> cmp = new Comparator<>() {
+        Comparator<Product> cmp = new Comparator<Product>() {
             @Override
             public int compare(Product p1, Product p2) {
                 return p1.compareTo(p2);

@@ -18,4 +18,8 @@ include 'aula06-weather-part3-queries.generics'
 include 'aula07-08-weather-part3-lazy-queries'
 include 'aula09-10-weather-service'
 include 'aula11-method-references'
+include 'aula13-weather-service-composition'
+include 'aula13-jingle-excerpts'
+
+
 

@@ -1,6 +1,7 @@
 import model.DayInfo;
 import model.Location;
 import org.junit.Test;
+import queries.lazy.Queries;
 import utils.FileRequest;
 import utils.HttpRequest;
 
@@ -93,10 +94,17 @@ public class WeatherServiceTests {
 
         Optional<DayInfo> maxThermalAmplitude=null;
 
+
         /* use aqui a operação reduce realizada anteriormente para
            obter o dia com a amplitude térmica máxima
         */
 
+        Optional<DayInfo> maxTemp = Queries.reduce(
+            lisbon.getDays(first,last),
+            (DayInfo d1,DayInfo d2) ->  {
+                if (d1.getMaxTemp() > d2.getMaxTemp()) return d1;
+                return d2;
+            });
 
         assertTrue(maxThermalAmplitude.isPresent());
         DayInfo max = maxThermalAmplitude.get();
