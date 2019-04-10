@@ -8,6 +8,7 @@ import org.isel.jingle.model.Track;
 import static org.isel.jingle.util.queries.LazyQueries.*;
 import org.isel.jingle.util.req.BaseRequest;
 import org.isel.jingle.util.req.HttpRequest;
+import io.reactivex.Observable;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -49,7 +50,7 @@ public class JingleService {
 
         /*
             Alternative operation pipeline  specification
-            using a the call chain.
+            using a call chain.
             More succinct but difficult to read...
          */
         return
