@@ -53,11 +53,13 @@ public interface Sequence<T> {
 
     // default interface skip n
     default Sequence<T> skip(int n) {
+
         return null;
     }
 
     // default interface method filter
-    default Sequence<T> filter(Predicate<T> pred ) {
+    default Sequence<T> filter(Predicate<T> pred )
+    {
         return  null;
     }
 
@@ -71,18 +73,20 @@ public interface Sequence<T> {
 
     // default interface method takeWhile
     default Sequence<T> takeWhile(Predicate<T> pred) {
+
         return null;
     }
 
     // default interface method skipWhile
     default Sequence<T> skipWhile(Predicate<T> pred) {
+
         return null;
     }
 
     // terminal operations
 
     default void forEach(Consumer<T> action) {
-
+        while(tryAdvance(action)) {}
     }
 
     default Optional<T> first() {
@@ -90,11 +94,18 @@ public interface Sequence<T> {
     }
 
     default List<T> toList() {
-        return null;
+        ArrayList<T> vals = new ArrayList<>();
+        forEach(val -> vals.add(val) );
+        return vals;
     }
 
-    default T[] toArray() {
-        return null;
+    default Object[] toArray() {
+       List<T> list = toList();
+       return list.toArray();
+    }
+
+    default T[] toArray(T[] array) {
+        return  toList().toArray(array);
     }
 
 }
