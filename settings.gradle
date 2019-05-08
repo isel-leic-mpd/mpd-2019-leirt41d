@@ -21,4 +21,6 @@ include 'aula11-method-references'
 include 'aula13-14-16-weather-service-composition'
 include 'aula13-jingle-excerpts'
 include 'aula16-stream-utils'
+include 'aula18-composition-and-streams'
+include 'aula19-streams-reduce-collect'
 
