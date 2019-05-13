@@ -23,4 +23,5 @@ include 'aula13-jingle-excerpts'
 include 'aula16-stream-utils'
 include 'aula18-composition-and-streams'
 include 'aula19-streams-reduce-collect'
+include 'aula20-async-programming'
 
