@@ -1,7 +1,7 @@
 import dto.DayInfoDto;
 import dto.LocationDto;
 import dto.WeatherInfoDto;
-import utils.IRequest;
+import utils.AsyncRequest;
 import utils.myiterators.MyIterable;
 import utils.sequences.Sequence;
 
@@ -22,7 +22,7 @@ public class WeatherWebApi {
     private static final String WEATHER_PAST_TEMPLATE =
             "past-weather.ashx?q=%s&date=%s&enddate=%s&tp=%d&format=csv&key=%s";
     private static final String WEATHER_SEARCH_TEMPLATE = "search.ashx?query=%s&format=tab&key=%s";
-    private final IRequest req;
+    private final AsyncRequest req;
 
     private static String getApiKeyFromResources() {
         try {
@@ -42,34 +42,32 @@ public class WeatherWebApi {
         API_KEY = getApiKeyFromResources();
     }
 
-    public WeatherWebApi(IRequest req) {
+    public WeatherWebApi(AsyncRequest req) {
         this.req = req;
     }
 
 
 
-    public Stream<WeatherInfoDto> pastWeather(double latitude,
-                      double longitude, LocalDate from,
-                      LocalDate to, int period) {
+    public CompletableFuture<Stream<WeatherInfoDto>>
+    pastWeather(double latitude, double longitude, LocalDate from, LocalDate to, int period) {
         String query = latitude + "," + longitude;
-        String path =  WEATHER_SERVICE + String.format(WEATHER_PAST_TEMPLATE,
-                query, from, to, period,API_KEY);
-        Stream<String> src =  req.getContent(path);
+        String path =  WEATHER_SERVICE + String.format(WEATHER_PAST_TEMPLATE, query, from, to, period,API_KEY);
+        CompletableFuture<Stream<String>> src =  req.getContent(path);
 
         return src
-                .dropWhile(str -> str.startsWith("#"))
-                .skip(1)
-                .filter(str->
-                        str.contains("worldweatheronline"))
-                .map(str->WeatherInfoDto.valueOf(str) );
+                .thenApply( s ->
+                    s.dropWhile(str -> str.startsWith("#"))
+                    .skip(1)
+                    .filter(str->
+                            str.contains("worldweatheronline"))
+                    .map(str->WeatherInfoDto.valueOf(str) )
+                );
     }
 
-
-    public Stream<DayInfoDto> pastDays(double latitude, double longitude,
-                   LocalDate from, LocalDate to) {
+    /*
+    public Stream<DayInfoDto> pastDays(double latitude, double longitude, LocalDate from, LocalDate to) {
         String query = latitude + "," + longitude;
-        String path =  WEATHER_SERVICE + String.format(WEATHER_PAST_TEMPLATE,
-                query, from, to, 24, API_KEY);
+        String path =  WEATHER_SERVICE + String.format(WEATHER_PAST_TEMPLATE, query, from, to, 24, API_KEY);
 
         Stream<String> src =  req.getContent(path);
 
@@ -82,12 +80,12 @@ public class WeatherWebApi {
 
     public Stream<LocationDto> search(String location) {
 
-        String path =  WEATHER_SERVICE +
-                String.format(WEATHER_SEARCH_TEMPLATE, location, API_KEY);
+        String path =  WEATHER_SERVICE + String.format(WEATHER_SEARCH_TEMPLATE, location, API_KEY);
         Stream<String> src =  req.getContent(path);
 
         return  src
                 .dropWhile(str -> str.startsWith("#"))
                 .map(str->LocationDto.valueOf(str) );
     }
+    */
 }

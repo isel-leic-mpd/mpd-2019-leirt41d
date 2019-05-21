@@ -154,9 +154,9 @@ public class AsyncTests {
 
         CompletableFuture<Long> fl1 = copyFileAsync(fin[0], fout[0]);
 
-        CompletableFuture<Long> fres=
-                fl1
-                .thenCompose( l -> copyFileAsync(fin[1], fout[1]));
+        CompletableFuture<Long> fl2 = copyFileAsync(fin[1], fout[1]);
+        CompletableFuture<Long> fres =
+                fl1.thenCombine( fl2, (l1,l2) -> l1 +l2);
 
         long l = fres.join();
         System.out.println(l);
@@ -166,6 +166,16 @@ public class AsyncTests {
     public void copy2FilesInSequenceWithCompletableFutureTest() {
         String[] fin = { "fin1.dat", "fin2.dat"};
         String[] fout = {"fout1.dat", "fout2.dat"};
+
+        CompletableFuture<Long> fl1 = copyFileAsync(fin[0], fout[0]);
+
+        CompletableFuture<Long> fres=
+                fl1
+                        .thenCompose( l ->
+                                copyFileAsync(fin[1], fout[1]));
+
+        long l = fres.join();
+        System.out.println(l);
     }
 
     @Test

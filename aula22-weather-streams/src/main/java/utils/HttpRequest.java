@@ -10,6 +10,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toList;
 import static utils.IRequest.getLines;
 import static org.asynchttpclient.Dsl.asyncHttpClient;
 
@@ -25,27 +26,19 @@ public class HttpRequest implements IRequest {
     }
 
 
-    public CompletableFuture<Stream<String>> getContentAsync(String path) {
-
-        AsyncHttpClient client = asyncHttpClient();
-
-        return client.prepareGet(path)
-                .execute()
-                .toCompletableFuture()
-                .thenApply(r -> getLines(r.getResponseBodyAsStream()))
-                .whenComplete((s,t) -> ahcClose(client)
-               );
-
-    }
 
     @Override
     public Stream<String> getContent(String path) {
         try {
             URL url = new URL(path);
-            return
-                getLines(url.openStream())
-                .collect(Collectors.toList())
-                .stream();
+            InputStream input = url.openStream();
+            Stream<String> lines =
+                    getLines(input)
+                    .collect(toList())
+                    .stream();
+            input.close();
+            return lines;
+
         }
         catch(IOException e) {
             throw new UncheckedIOException(e);

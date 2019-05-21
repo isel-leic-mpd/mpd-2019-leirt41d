@@ -25,4 +25,5 @@ include 'aula18-composition-and-streams'
 include 'aula19-streams-reduce-collect'
 include 'aula20-async-programming'
 include 'aula22-weather-streams'
+include 'aula23-weather-async'
 

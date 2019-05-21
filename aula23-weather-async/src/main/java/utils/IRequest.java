@@ -1,20 +1,19 @@
 package utils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
 
 public interface IRequest {
     Stream<String> getContent(String path);
 
     static  Stream<String> getLines(InputStream input) {
         BufferedReader reader =
-                    new BufferedReader(
-                            new InputStreamReader(input));
+                new BufferedReader(
+                        new InputStreamReader(input));
         return reader.lines();
-
 
     }
 }

@@ -16,6 +16,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import static utils.AsyncUtils.sleep;
+
 
 public class AsyncFile {
     private enum Mode { Read, Write}
@@ -141,8 +143,10 @@ public class AsyncFile {
 
     public CompletableFuture<Integer> readBytes(byte[] data, int ofs, int size) {
         CompletableFuture<Integer> completed = new CompletableFuture<>();
+
         readBytes(data, ofs, size,
                 (t,i) -> {
+                    sleep(5000);
                     if (t== null) completed.complete(i);
                     else completed.completeExceptionally(t);
                 });

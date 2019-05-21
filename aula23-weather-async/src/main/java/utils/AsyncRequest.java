@@ -6,15 +6,14 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
-public interface IRequest {
-    Stream<String> getContent(String path);
+public interface AsyncRequest {
+    CompletableFuture<Stream<String>> getContent(String path);
 
     static  Stream<String> getLines(InputStream input) {
         BufferedReader reader =
-                    new BufferedReader(
-                            new InputStreamReader(input));
+                new BufferedReader(
+                        new InputStreamReader(input));
         return reader.lines();
-
 
     }
 }
