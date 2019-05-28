@@ -91,4 +91,46 @@ public class WeatherServiceTests {
 
     }
 
+
+    private CompletableFuture<Location> getLocationFromName(
+            WeatherService service, String locationName, String country) {
+        return null;
+    }
+
+    private CompletableFuture<DayInfo>
+            getDayInfoFromLocation(Location location, LocalDate date) {
+        return null;
+    }
+
+    private CompletableFuture<Integer> getMaxTempFromLocationNameAtDay(
+            WeatherService service, String locationName, String country, LocalDate date) {
+        return null;
+    }
+
+    private CompletableFuture<Integer> getMaxTempOfSelectedCountryLocationsAtaDay(
+            WeatherService service, List<String> names, String country, LocalDate date) {
+        return null;
+    }
+
+
+    @Test
+    public void maxTempFromSelectedLocationAtaDayTest() {
+        WeatherService service = new WeatherService(
+                new WeatherWebApi(new HttpRequest()));
+
+        List<String> names = List.of("Lisbon", "Oporto",
+                "Coimbra", "Faro");
+
+        long start = System.currentTimeMillis();
+        int[] maxTemp = {0};
+        getMaxTempOfSelectedCountryLocationsAtaDay(
+                service,names,"portugal",
+                LocalDate.of(2019,5,12))
+                .thenAccept(temp -> maxTemp[0] = temp)
+                .join();
+        long end = System.currentTimeMillis();
+        System.out.println(maxTemp[0] + ":done at " + (end-start) + "ms!");
+
+    }
+
 }

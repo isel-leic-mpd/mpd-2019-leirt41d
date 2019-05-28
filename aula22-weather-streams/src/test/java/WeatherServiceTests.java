@@ -119,17 +119,14 @@ public class WeatherServiceTests {
     }
 
     @Test
-    public void maxOfThermicAmplitudeAtPortugalPlacesOnMarch2019() {
+    public void maxTemperatureAtPortugalPlacesOnMay2019() {
         WeatherService weather =
                 new WeatherService(new WeatherWebApi(new HttpRequest()));
-        PlaceAmplitude[] expected = {
-                new PlaceAmplitude("Lisbon", 16 ),
-                new PlaceAmplitude("Oporto", 10 ),
-                new PlaceAmplitude("Coimbra", 16),
-                new PlaceAmplitude("Faro", 9)
-        };
+
         List<String> names =
                 List.of("Lisbon", "Oporto", "Coimbra", "Faro");
+
+        long start = System.currentTimeMillis();
 
         Stream<Location> locs =
                 names.stream()
@@ -142,24 +139,18 @@ public class WeatherServiceTests {
                 );
 
 
-        PlaceAmplitude[] maxAmpliPlaces =
+        int maxTemp =
             locs.map(loc -> {
 
-                LocalDate first = LocalDate.of(2019, 3, 1);
-                LocalDate last = LocalDate.of(2019, 3, 20);
-                DayInfo day  =
-                        loc.getDays(first, last)
-                        .reduce((d1, d2) -> {
-                                int amp1 = d1.getMaxTemp() - d1.getMinTemp();
-                                int amp2 = d2.getMaxTemp() - d2.getMinTemp();
-                                return (amp1 >= amp2) ? d1 : d2;
-                            }).get();
-                return new PlaceAmplitude(loc.getName(),
-                                day.getMaxTemp()-day.getMinTemp());
+                LocalDate date = LocalDate.of(2019, 5, 12);
+                return loc.getDays(date, date).findFirst().get();
             })
-            .toArray(sz -> new PlaceAmplitude[sz]);
+            .mapToInt(d -> d.getMaxTemp())
+            .reduce((t1, t2) -> t1 >= t2 ? t1 : t2)
+            .getAsInt();
 
-        assertArrayEquals(expected, maxAmpliPlaces);
+        long end = System.currentTimeMillis();
+        System.out.println(maxTemp + ":done at " + (end-start) + "ms!");
 
     }
 
