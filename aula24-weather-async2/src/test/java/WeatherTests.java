@@ -33,6 +33,7 @@ public class WeatherTests {
             this.day = day; this.temps =temps;
         }
     }
+
     @Test
     public void pastWheaterAtLisbonFrom2019Feb1Till2019Feb26Test() {
 

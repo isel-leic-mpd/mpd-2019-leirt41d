@@ -15,14 +15,17 @@ public class TempProcessor implements Processor<TempInfo, TempInfo> {
     }
     @Override
     public void onSubscribe( Subscription subscription ) {
+
         subscriber.onSubscribe( subscription );
     }
     @Override
     public void onError( Throwable throwable ) {
+
         subscriber.onError( throwable );
     }
     @Override
     public void onComplete() {
+
         subscriber.onComplete();
     }
 }

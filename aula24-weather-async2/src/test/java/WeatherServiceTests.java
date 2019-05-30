@@ -92,23 +92,63 @@ public class WeatherServiceTests {
     }
 
 
+    /**
+     * Retorna um CompletableFuture cujo valor é a Location
+     * de nome locationName no país de nome country
+     * Assume-se que a location existe
+     * @param service
+     * @param locationName
+     * @param country
+     * @return
+     */
     private CompletableFuture<Location> getLocationFromName(
             WeatherService service, String locationName, String country) {
         return null;
     }
 
+    /**
+     * Retorna o CompletableFuture cujo valor é a
+     * observação meteorológica diária obtida
+     * da Location "location" na data "date"
+     * @param location
+     * @param date
+     * @return
+     */
     private CompletableFuture<DayInfo>
             getDayInfoFromLocation(Location location, LocalDate date) {
+
         return null;
     }
 
+    /**
+     *  Retorna o CompletableFuture cujo valor é a
+     *  máxima temperatura na observação meteorológica diária obtida
+     *  da Location  de nome "locationName"  do país "country" na data "date"
+     * @param service
+     * @param locationName
+     * @param country
+     * @param date
+     * @return
+     */
     private CompletableFuture<Integer> getMaxTempFromLocationNameAtDay(
-            WeatherService service, String locationName, String country, LocalDate date) {
+            WeatherService service, String locationName,
+            String country, LocalDate date) {
         return null;
     }
 
-    private CompletableFuture<Integer> getMaxTempOfSelectedCountryLocationsAtaDay(
-            WeatherService service, List<String> names, String country, LocalDate date) {
+    /**
+     * Retorna o CompletableFuture cujo valor é a máxima temperatura
+     * de um conjunto de localidades dentro de um país numa dada data
+     * @param service
+     * @param names
+     * @param country
+     * @param date
+     * @return
+     */
+    private CompletableFuture<Integer>
+    getMaxTempOfSelectedCountryLocationsAtaDay(
+            WeatherService service, List<String> names, String country,
+            LocalDate date) {
         return null;
     }
 
