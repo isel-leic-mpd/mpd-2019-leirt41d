@@ -14,8 +14,8 @@ import java.util.stream.LongStream;
 
 public class ObsUtils {
 
-    public static <T> Observable<T> from(CompletableFuture<T> fut) {
-
+    public static <T> Observable<T> fromFuture(
+            CompletableFuture<T> fut) {
         return Observable.create( subscriber -> {
             fut.whenComplete((T val, Throwable fault) -> {
                 if (fault == null) {
@@ -25,7 +25,6 @@ public class ObsUtils {
                     subscriber.onError(fault);
                 }
             });
-
         });
     }
 }

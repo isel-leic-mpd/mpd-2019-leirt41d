@@ -17,6 +17,7 @@ public class ObsThreading {
                     + Thread.currentThread().getId());
 
         }
+
         @Override
         public void onNext(Long aLong) {
             System.out.println("Next value " + aLong + " on thread "
