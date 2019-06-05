@@ -53,6 +53,7 @@ public class WeatherServiceTests {
             );
 
         assertTrue(lisbon.isPresent());
+
         LocalDate day1 = LocalDate.of(2019, 2, 2);
         LocalDate day2 = LocalDate.of(2019, 2, 3);
 

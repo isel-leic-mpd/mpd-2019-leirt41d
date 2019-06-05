@@ -30,6 +30,13 @@ public class Location {
         this.pastDays = pastDays;
     }
 
+    public Location(double latitude, double longitude) {
+
+        this.latitude = latitude;
+        this.longitude = longitude;
+
+    }
+
     // acessors
     public String getName()         { return name; }
     public String getCountry()      { return country; }

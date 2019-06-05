@@ -28,4 +28,5 @@ include 'aula22-weather-streams'
 include 'aula23-weather-async'
 include 'aula24-weather-async2'
 include 'aula26-excerpt-jingle-observable'
+include 'aula27-weather-web'
 
